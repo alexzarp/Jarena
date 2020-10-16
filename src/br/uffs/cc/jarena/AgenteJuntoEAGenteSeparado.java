@@ -8,11 +8,11 @@
 
 package br.uffs.cc.jarena;
 
-public class AgenteTeamWarrenBuffett extends Agente
+public class AgenteJuntoEAGenteSeparado extends Agente
 {
     int contador;
 
-    public AgenteTeamWarrenBuffett(Integer x, Integer y, Integer energia) {
+    public AgenteJuntoEAGenteSeparado(Integer x, Integer y, Integer energia) {
         super(x, y, energia);
         setDirecao(geraDirecaoAleatoria());
         contador = 0;
@@ -88,6 +88,6 @@ public class AgenteTeamWarrenBuffett extends Agente
 	
 	public String getEquipe() {
 		// Definimos que o nome da equipe do agente é "Fernando".
-		return "Team Warren Buffett";
+		return "Team Agente junto e a gente separado";
 	}
 }
