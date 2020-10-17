@@ -26,31 +26,31 @@ public class AgenteJuntoEAGenteSeparado extends Agente
 			setDirecao(geraDirecaoAleatoria());
         }
         
-        if(contador == 10) {
-            //divide();
-            //setDirecao(geraDirecaoAleatoria());
+        if(contador%5 == 0) {
+            divide();
+            setDirecao(geraDirecaoAleatoria());
         }
 
-        if(contador >= 20) {
+        if(contador >= 50) {
             contador = 0;
         }
         
-        if(Math.random() < 0.2) {
+        /*if(Math.random() < 0.2) {
             setDirecao(geraDirecaoAleatoria());
-        }
+        }*/
 
 		// Se o agente conseguie se dividir (tem energia) e se o total de energia
 		// do agente é maior que 400, nos dividimos. O agente filho terá a metade
 		// da nossa energia atual.
 		if(podeDividir() && getEnergia() >= 800) {
-			//divide();
+			divide();
 		}
 	}
 	
 	public void recebeuEnergia() {
         // Invocado sempre que o agente recebe energia.
         System.out.println(getId() + " -> ESTOU NO COGUMELO, x= " + getX() + " y = " + getY());
-
+        para();
         // "10|30"
         enviaMensagem("f");
         enviaMensagem("a");
@@ -62,6 +62,7 @@ public class AgenteJuntoEAGenteSeparado extends Agente
         System.out.println(getId() + " -> estou tomando pipoco aqui, x= " + getX() + " y = " + getY() + ", ini = " + energiaRestanteInimigo);
 
         para();
+        setDirecao(geraDirecaoAleatoria());
 	}
 	
 	public void ganhouCombate() {
