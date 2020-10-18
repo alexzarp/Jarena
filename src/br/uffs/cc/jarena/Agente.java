@@ -74,7 +74,7 @@ abstract public class Agente extends Entidade
 	 */
 	public abstract String getEquipe();	
 	
-	
+/*-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+*/	
 	
 	 // Métodos públicos que o jogador pode utilizar para criar a IA
 	 // de seu agente.

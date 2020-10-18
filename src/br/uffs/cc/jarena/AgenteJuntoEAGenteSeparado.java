@@ -44,7 +44,15 @@ public class AgenteJuntoEAGenteSeparado extends Agente
 		// da nossa energia atual.
 		if(podeDividir() && getEnergia() >= 800) {
 			divide();
-		}
+        }
+        
+        
+        if (isParado()) {
+            setDirecao(geraDirecaoAleatoria());
+        }
+
+        
+
 	}
 	
 	public void recebeuEnergia() {
@@ -85,6 +93,6 @@ public class AgenteJuntoEAGenteSeparado extends Agente
 	}
 	
 	public String getEquipe() {
-		return "Team Agente junto e a gente separado";
+		return "AgenteJuntoEAGenteSeparado";
 	}
 }
