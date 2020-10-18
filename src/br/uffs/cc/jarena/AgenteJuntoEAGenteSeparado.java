@@ -27,6 +27,7 @@ public class AgenteJuntoEAGenteSeparado extends Agente
         }
         
         if(contador%5 == 0) {
+            System.out.println("Contador" + contador);
             divide();
             setDirecao(geraDirecaoAleatoria());
         }
@@ -34,6 +35,7 @@ public class AgenteJuntoEAGenteSeparado extends Agente
         if(contador >= 50) {
             contador = 0;
         }
+        
         
         /*if(Math.random() < 0.2) {
             setDirecao(geraDirecaoAleatoria());
@@ -53,24 +55,27 @@ public class AgenteJuntoEAGenteSeparado extends Agente
 
         
 
+        
+
+        
+
 	}
 	
 	public void recebeuEnergia() {
         // Invocado sempre que o agente recebe energia.
         System.out.println(getId() + " -> ESTOU NO COGUMELO, x= " + getX() + " y = " + getY());
-        para();
-        // "10|30"
-        enviaMensagem("f");
-        enviaMensagem("a");
+        //para();
+        int dir = getDirecao();
+        enviaMensagem("q");
+        //enviaMensagem("a");
 	}
 	
 	public void tomouDano(int energiaRestanteInimigo) {
 		// Invocado quando o agente está na mesma posição que um agente inimigo
         // e eles estão batalhando (ambos tomam dano).
-        System.out.println(getId() + " -> estou tomando pipoco aqui, x= " + getX() + " y = " + getY() + ", ini = " + energiaRestanteInimigo);
-
-        para();
+        System.out.println(getId() + " -> help, help, help, x= " + getX() + " y = " + getY() + ", ini = " + energiaRestanteInimigo);para();
         setDirecao(geraDirecaoAleatoria());
+        enviaMensagem("Help");
 	}
 	
 	public void ganhouCombate() {
@@ -82,12 +87,16 @@ public class AgenteJuntoEAGenteSeparado extends Agente
         // Invocado sempre que um agente aliado próximo envia uma mensagem.
         // msg = "44444|43949494"
 
-        if(msg.equals("f")) {
-            setDirecao(geraDirecaoAleatoria());
+        if(msg.equals("q")) {
+            setDirecao(getDirecao());
         }
 
         if(msg.equals("a")) {
             setDirecao(geraDirecaoAleatoria());
+        }
+
+        if (msg.equals("Help")) {
+            setDirecao(getDirecao());
         }
         System.out.println("recebi uma mensagem: " + msg);
 	}
