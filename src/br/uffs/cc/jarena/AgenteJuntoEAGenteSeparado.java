@@ -26,13 +26,13 @@ public class AgenteJuntoEAGenteSeparado extends Agente
 			setDirecao(geraDirecaoAleatoria());
         }
         
-        if(contador%5 == 0) {
+        if(contador==10) {
             System.out.println("Contador" + contador);
             divide();
             setDirecao(geraDirecaoAleatoria());
         }
 
-        if(contador >= 50) {
+        if(contador >= 15) {
             contador = 0;
         }
         
