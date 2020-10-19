@@ -27,12 +27,12 @@ public class AgenteJuntoEAGenteSeparado extends Agente
         }
         
         if(contador==10) {
-            System.out.println("Contador" + contador);
+            //System.out.println("Contador" + contador);
             divide();
             setDirecao(geraDirecaoAleatoria());
         }
 
-        if(contador >= 15) {
+        if(contador >= 50) {
             contador = 0;
         }
         
