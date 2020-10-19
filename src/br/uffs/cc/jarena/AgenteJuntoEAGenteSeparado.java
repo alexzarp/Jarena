@@ -9,12 +9,11 @@ import javax.net.ssl.TrustManagerFactorySpi;
 public class AgenteJuntoEAGenteSeparado extends Agente
 {
     int contador;
-    boolean permitidoDividir;
-    int xis = getX();
-    int yis = getY();
+    int time = 20;
+    boolean teste;
 
     public AgenteJuntoEAGenteSeparado(Integer x, Integer y, Integer energia) {
-        super(x, y, energia);
+        super(400, 500, energia);
         setDirecao(geraDirecaoAleatoria());
         contador = 0;
 	}
@@ -22,97 +21,44 @@ public class AgenteJuntoEAGenteSeparado extends Agente
 	public void pensa() {
         contador++;
 
-		// Se não conseguimos nos mover para a direção atual, quer dizer
-		// que chegamos no final do mapa ou existe algo bloqueando nosso
-		// caminho.
-		if(!podeMoverPara(getDirecao())) {
-			// Como não conseguimos nos mover, vamos escolher uma direção
-			// nova.
-			setDirecao(geraDirecaoAleatoria());
+		if(!podeMoverPara(getDirecao()) || (isParado() && !teste)) {
+            setDirecao(geraDirecaoAleatoria());
+            teste = false;
         }
 
-
-        /*
-		// Se o agente conseguie se dividir (tem energia) e se o total de energia
-		// do agente é maior que 400, nos dividimos. O agente filho terá a metade
-		// da nossa energia atual.*/
-		if(podeDividir() && getEnergia() >= 800) {
-            if (permitidoDividir) {
-                divide();
-            }
-			
-        }
-        
-        if (isParado() && (contador == 40)) {
+        if ((contador % time) == 0) {
             setDirecao(geraDirecaoAleatoria());
         }
 
-        
-
-        
-
-        
+        /*if ((getEnergia() >= 800) && Math.random() > 0.85){
+            divide();
+        }*/
 
 	}
 	
 	public void recebeuEnergia() {
-        /*// Invocado sempre que o agente recebe energia.*/
-        System.out.println(getId() + " -> ESTOU NO COGUMELO, x= " + getX() + " y = " + getY());
+        teste = true;
         para();
-        int dir = getDirecao();
-        enviaMensagem("recebi energia");
-
-        
+        //enviaMensagem("Estou no cogumelo");
 	}
 	
 	public void tomouDano(int energiaRestanteInimigo) {
-		// Invocado quando o agente está na mesma posição que um agente inimigo
-        // e eles estão batalhando (ambos tomam dano).
-        System.out.println(getId() + " -> help, help, help, x= " + getX() + " y = " + getY() + ", ini = " + energiaRestanteInimigo);para();
-        
-        enviaMensagem("Help");
-
         setDirecao(geraDirecaoAleatoria());
 
-        if (getX() < xis) {
-            podeMoverPara(ESQUERDA);
-        } else {
-            podeMoverPara(DIREITA);
+        if (getEnergia() < 10) {
+            morre();
         }
 
-        if (getY() < yis) {
-            podeMoverPara(CIMA);
-        } else {
-            podeMoverPara(BAIXO);
-        }
 	}
 	
 	public void ganhouCombate() {
-        // Invocado se estamos batalhando e nosso inimigo morreu.
+        
         setDirecao(geraDirecaoAleatoria());
 	}
 	
 	public void recebeuMensagem(String msg) {
-        // Invocado sempre que um agente aliado próximo envia uma mensagem.
-        // msg = "44444|43949494"
 
-        if(msg.equals("recebi energia")) {
-            setDirecao(getDirecao());
-            permitidoDividir = true;
-            if (getX() < xis) {
-                podeMoverPara(ESQUERDA);
-            } else {
-                podeMoverPara(DIREITA);
-            }
-    
-            if (getY() < yis) {
-                podeMoverPara(CIMA);
-            } else {
-                podeMoverPara(BAIXO);
-            }
-        }
-
-        if(msg.equals("a")) {
+        if(msg.equals("Estou no cogumelo")) {
             setDirecao(geraDirecaoAleatoria());
         }
 
@@ -120,7 +66,7 @@ public class AgenteJuntoEAGenteSeparado extends Agente
             setDirecao(getDirecao());
         }
         System.out.println("recebi uma mensagem: " + msg);
-        permitidoDividir = false;
+        
 	}
     
     
