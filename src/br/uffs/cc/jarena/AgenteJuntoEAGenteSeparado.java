@@ -37,9 +37,10 @@ public class AgenteJuntoEAGenteSeparado extends Agente
 	}
 	
 	public void recebeuEnergia() {
+        enviaMensagem("Estou no cogumelo");
         teste = true;
         para();
-        //enviaMensagem("Estou no cogumelo");
+        
 	}
 	
 	public void tomouDano(int energiaRestanteInimigo) {
@@ -59,7 +60,9 @@ public class AgenteJuntoEAGenteSeparado extends Agente
 	public void recebeuMensagem(String msg) {
 
         if(msg.equals("Estou no cogumelo")) {
-            setDirecao(geraDirecaoAleatoria());
+            if ((contador % time) == 0) {
+                setDirecao(geraDirecaoAleatoria());
+            }
         }
 
         if (msg.equals("Help")) {
