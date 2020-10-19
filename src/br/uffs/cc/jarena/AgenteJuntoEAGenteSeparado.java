@@ -31,6 +31,7 @@ public class AgenteJuntoEAGenteSeparado extends Agente
 			setDirecao(geraDirecaoAleatoria());
         }
 
+
         /*
 		// Se o agente conseguie se dividir (tem energia) e se o total de energia
 		// do agente é maior que 400, nos dividimos. O agente filho terá a metade
