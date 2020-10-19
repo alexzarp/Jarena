@@ -4,9 +4,14 @@
 
 package br.uffs.cc.jarena;
 
+import javax.net.ssl.TrustManagerFactorySpi;
+
 public class AgenteJuntoEAGenteSeparado extends Agente
 {
     int contador;
+    boolean permitidoDividir;
+    int xis = getX();
+    int yis = getY();
 
     public AgenteJuntoEAGenteSeparado(Integer x, Integer y, Integer energia) {
         super(x, y, energia);
@@ -25,31 +30,19 @@ public class AgenteJuntoEAGenteSeparado extends Agente
 			// nova.
 			setDirecao(geraDirecaoAleatoria());
         }
-        
-        if(contador==10) {
-            System.out.println("Contador" + contador);
-            divide();
-            setDirecao(geraDirecaoAleatoria());
-        }
 
-        if(contador >= 15) {
-            contador = 0;
-        }
-        
-        
-        /*if(Math.random() < 0.2) {
-            setDirecao(geraDirecaoAleatoria());
-        }*/
-
+        /*
 		// Se o agente conseguie se dividir (tem energia) e se o total de energia
 		// do agente é maior que 400, nos dividimos. O agente filho terá a metade
-		// da nossa energia atual.
+		// da nossa energia atual.*/
 		if(podeDividir() && getEnergia() >= 800) {
-			divide();
+            if (permitidoDividir) {
+                divide();
+            }
+			
         }
         
-        
-        if (isParado()) {
+        if (isParado() && (contador == 40)) {
             setDirecao(geraDirecaoAleatoria());
         }
 
@@ -62,20 +55,35 @@ public class AgenteJuntoEAGenteSeparado extends Agente
 	}
 	
 	public void recebeuEnergia() {
-        // Invocado sempre que o agente recebe energia.
+        /*// Invocado sempre que o agente recebe energia.*/
         System.out.println(getId() + " -> ESTOU NO COGUMELO, x= " + getX() + " y = " + getY());
-        //para();
+        para();
         int dir = getDirecao();
-        enviaMensagem("q");
-        //enviaMensagem("a");
+        enviaMensagem("recebi energia");
+
+        
 	}
 	
 	public void tomouDano(int energiaRestanteInimigo) {
 		// Invocado quando o agente está na mesma posição que um agente inimigo
         // e eles estão batalhando (ambos tomam dano).
         System.out.println(getId() + " -> help, help, help, x= " + getX() + " y = " + getY() + ", ini = " + energiaRestanteInimigo);para();
-        setDirecao(geraDirecaoAleatoria());
+        
         enviaMensagem("Help");
+
+        setDirecao(geraDirecaoAleatoria());
+
+        if (getX() < xis) {
+            podeMoverPara(ESQUERDA);
+        } else {
+            podeMoverPara(DIREITA);
+        }
+
+        if (getY() < yis) {
+            podeMoverPara(CIMA);
+        } else {
+            podeMoverPara(BAIXO);
+        }
 	}
 	
 	public void ganhouCombate() {
@@ -87,8 +95,20 @@ public class AgenteJuntoEAGenteSeparado extends Agente
         // Invocado sempre que um agente aliado próximo envia uma mensagem.
         // msg = "44444|43949494"
 
-        if(msg.equals("q")) {
+        if(msg.equals("recebi energia")) {
             setDirecao(getDirecao());
+            permitidoDividir = true;
+            if (getX() < xis) {
+                podeMoverPara(ESQUERDA);
+            } else {
+                podeMoverPara(DIREITA);
+            }
+    
+            if (getY() < yis) {
+                podeMoverPara(CIMA);
+            } else {
+                podeMoverPara(BAIXO);
+            }
         }
 
         if(msg.equals("a")) {
@@ -99,8 +119,20 @@ public class AgenteJuntoEAGenteSeparado extends Agente
             setDirecao(getDirecao());
         }
         System.out.println("recebi uma mensagem: " + msg);
+        permitidoDividir = false;
 	}
-	
+    
+    
+
+
+
+
+
+
+
+
+
+
 	public String getEquipe() {
 		return "AgenteJuntoEAGenteSeparado";
 	}
