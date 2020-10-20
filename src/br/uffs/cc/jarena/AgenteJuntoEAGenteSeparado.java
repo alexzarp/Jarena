@@ -16,7 +16,6 @@ public class AgenteJuntoEAGenteSeparado extends Agente
     int recebeY = getY();
     int contaVitoria = 0;
     boolean lutando = false;
-    boolean anda = false;
 
     public AgenteJuntoEAGenteSeparado(Integer x, Integer y, Integer energia) {
         super(400, 500, energia);
@@ -43,10 +42,7 @@ public class AgenteJuntoEAGenteSeparado extends Agente
             }
         }
         
-    }
-	
-
-    
+    } 
     
     public void pensa() {
         contador++;
@@ -67,7 +63,7 @@ public class AgenteJuntoEAGenteSeparado extends Agente
             lutando = false;
         }
         
-        anda = false;
+        
 	}
 	
 	public void recebeuEnergia() {
@@ -119,7 +115,7 @@ public class AgenteJuntoEAGenteSeparado extends Agente
 
         if(msg.equals("Estou no cogumelo")) {
             DirecaoContraria();
-            anda = true;
+            
         }
 
         if(msg.equals("Estou tomando dano aqui")) {
