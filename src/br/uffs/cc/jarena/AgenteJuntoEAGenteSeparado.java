@@ -30,9 +30,9 @@ public class AgenteJuntoEAGenteSeparado extends Agente
             setDirecao(geraDirecaoAleatoria());
         }
 
-        if ((getEnergia() == 800)){
-            System.out.println("energia" +getEnergia());
-            divide();
+        if ((getEnergia() == 500)){
+            System.out.println("energia " +getEnergia());
+            podeDividir();
         }
 
 	}
