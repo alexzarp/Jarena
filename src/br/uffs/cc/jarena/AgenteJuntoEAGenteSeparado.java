@@ -14,6 +14,9 @@ public class AgenteJuntoEAGenteSeparado extends Agente
     boolean teste;
     int recebeX = getX();
     int recebeY = getY();
+    int contaVitoria = 0;
+    boolean lutando = false;
+    boolean anda = false;
 
     public AgenteJuntoEAGenteSeparado(Integer x, Integer y, Integer energia) {
         super(400, 500, energia);
@@ -39,15 +42,10 @@ public class AgenteJuntoEAGenteSeparado extends Agente
                 podeMoverPara(CIMA);
             }
         }
-
-        
-
         
     }
 	
-    
-    
-    
+
     
     
     public void pensa() {
@@ -55,17 +53,21 @@ public class AgenteJuntoEAGenteSeparado extends Agente
 
 		if(!podeMoverPara(getDirecao()) || (isParado() && !teste)) {
             setDirecao(geraDirecaoAleatoria());
-            teste = false;
+            
         }
 
         if ((contador % time) == 0) {
             setDirecao(geraDirecaoAleatoria());
         }
 
-        if (getEnergia() < 270) {
-            enviaMensagem("Estou com pouca vida");
+        if ((getEnergia() < 170) && !lutando) {
+            para();
+                        
+        } else {
+            lutando = false;
         }
-
+        
+        anda = false;
 	}
 	
 	public void recebeuEnergia() {
@@ -83,13 +85,15 @@ public class AgenteJuntoEAGenteSeparado extends Agente
             }
         }
 	
-	
+    
+        
+
 	public void tomouDano(int energiaRestanteInimigo) {
 
         if (getEnergia() < 10) {
             morre();
         }
-
+        lutando = true;
         enviaMensagem("Estou tomando dano aqui");
 
 
@@ -103,26 +107,27 @@ public class AgenteJuntoEAGenteSeparado extends Agente
         
         
     }
-	
+    
+    
 	public void ganhouCombate() {
         setDirecao(geraDirecaoAleatoria());
+        enviaMensagem("matei esse bagaceira");
+        System.out.print("Matamos um total de " + contaVitoria + " inimigos");
 	}
 	
 	public void recebeuMensagem(String msg) {
 
         if(msg.equals("Estou no cogumelo")) {
             DirecaoContraria();
-            
+            anda = true;
         }
-            
 
         if(msg.equals("Estou tomando dano aqui")) {
             DirecaoContraria();
         }
 
-        if(msg.equals("Estou com poca vida")) {
-            para();
-
+        if(msg.equals("matei esse bagaceira")) {
+            contaVitoria++;
         }
     
     }
