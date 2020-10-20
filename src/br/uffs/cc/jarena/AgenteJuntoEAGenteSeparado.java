@@ -11,6 +11,8 @@ public class AgenteJuntoEAGenteSeparado extends Agente
     int contador;
     int time = 20;
     boolean teste;
+    int recebeX = getX();
+    int recebeY = getY();
 
     public AgenteJuntoEAGenteSeparado(Integer x, Integer y, Integer energia) {
         super(400, 500, energia);
@@ -30,10 +32,7 @@ public class AgenteJuntoEAGenteSeparado extends Agente
             setDirecao(geraDirecaoAleatoria());
         }
 
-        /*if ((getEnergia() == 500)){
-            System.out.println("energia " +getEnergia());
-            podeDividir();
-        }*/
+        
 
 	}
 	
@@ -54,7 +53,6 @@ public class AgenteJuntoEAGenteSeparado extends Agente
 	}
 	
 	public void ganhouCombate() {
-        
         setDirecao(geraDirecaoAleatoria());
 	}
 	
@@ -62,16 +60,23 @@ public class AgenteJuntoEAGenteSeparado extends Agente
 
         if(msg.equals("Estou no cogumelo")) {
             if ((contador % time) == 0) {
-                setDirecao(geraDirecaoAleatoria());
+                if (getX() > recebeX) {
+                    podeMoverPara(ESQUERDA);
+                } else {
+                    podeMoverPara(DIREITA);
+                }
             }
-        }
 
-        if (msg.equals("Help")) {
-            setDirecao(getDirecao());
+            if ((contador % time) == 0) {
+                if (getY() > recebeY) {
+                    podeMoverPara(BAIXO);
+                } else {
+                    podeMoverPara(CIMA);
+                }
+            }
+    
         }
-        System.out.println("recebi uma mensagem: " + msg);
-        
-	}
+    }
     
     
 
@@ -84,7 +89,8 @@ public class AgenteJuntoEAGenteSeparado extends Agente
 
 
 
-	public String getEquipe() {
-		return "AgenteJuntoEAGenteSeparado";
-	}
+	    public String getEquipe() {
+		    return "AgenteJuntoEAGenteSeparado";
+	        }
+    
 }
