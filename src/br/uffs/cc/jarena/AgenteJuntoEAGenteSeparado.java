@@ -56,17 +56,13 @@ public class AgenteJuntoEAGenteSeparado extends Agente
             setDirecao(geraDirecaoAleatoria());
         }
 
-        if ((getEnergia() < 170) && !lutando) {
+        if ((getEnergia() < 130) && !lutando) {
             para();
-                        
         } else {
             lutando = false;
         }
-        
-        
-	}
-	
-	public void recebeuEnergia() {
+}
+      public void recebeuEnergia() {
         enviaMensagem("Estou no cogumelo");
         tempo++;
         
