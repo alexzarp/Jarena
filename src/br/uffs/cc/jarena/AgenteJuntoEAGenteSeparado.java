@@ -19,9 +19,38 @@ public class AgenteJuntoEAGenteSeparado extends Agente
         super(400, 500, energia);
         setDirecao(geraDirecaoAleatoria());
         contador = 0;
-	}
+    }
+   
+    public void DirecaoContraria() {
+
+        if ((contador % time) == 0) {
+            if (getX() > recebeX) {
+                podeMoverPara(ESQUERDA);
+                
+            } else {
+                podeMoverPara(DIREITA);
+            }
+        }
+
+        if ((contador % time) == 1) {
+            if (getY() > recebeY) {
+                podeMoverPara(BAIXO);
+            } else {
+                podeMoverPara(CIMA);
+            }
+        }
+
+        System.out.println("FUNCIONNAAAAAA");
+
+        
+    }
 	
-	public void pensa() {
+    
+    
+    
+    
+    
+    public void pensa() {
         contador++;
 
 		if(!podeMoverPara(getDirecao()) || (isParado() && !teste)) {
@@ -45,9 +74,10 @@ public class AgenteJuntoEAGenteSeparado extends Agente
         para();
     
         tempo++;
-        if((podeDividir() && getEnergia() >= 700) && (tempo > 50)) {
+        if((podeDividir() && getEnergia() >= 700) && (tempo > 35)) {
                 divide();
                 tempo = 0;
+                System.out.println("me dividi");
             }
         }
 	
@@ -60,6 +90,7 @@ public class AgenteJuntoEAGenteSeparado extends Agente
 
         enviaMensagem("Estou tomando dano aqui");
 
+
         if (getEnergia() < 300) {
             podeMoverPara(ESQUERDA);
 
@@ -69,7 +100,7 @@ public class AgenteJuntoEAGenteSeparado extends Agente
         }
         
         
-	}
+    }
 	
 	public void ganhouCombate() {
         setDirecao(geraDirecaoAleatoria());
@@ -78,27 +109,16 @@ public class AgenteJuntoEAGenteSeparado extends Agente
 	public void recebeuMensagem(String msg) {
 
         if(msg.equals("Estou no cogumelo")) {
-            if ((contador % time) == 0) {
-                if (getX() > recebeX) {
-                    podeMoverPara(ESQUERDA);
-                    
-                } else {
-                    podeMoverPara(DIREITA);
-                }
-            }
+            DirecaoContraria();
+            
+        }
+            
+
+        if(msg.equals("Estou tomando dano aqui")) {
+            DirecaoContraria();
         }
 
-            if ((contador % time) == 1) {
-                if (getY() > recebeY) {
-                    podeMoverPara(BAIXO);
-                } else {
-                    podeMoverPara(CIMA);
-                }
-            }
-
-            if(msg.equals("Estou tomando dano aqui")) {
-
-            }
+            
     
     }
     
