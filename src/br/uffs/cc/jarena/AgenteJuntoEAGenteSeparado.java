@@ -10,6 +10,7 @@ public class AgenteJuntoEAGenteSeparado extends Agente
 {
     int contador;
     int time = 20;
+    int tempo = 0;
     boolean teste;
     int recebeX = getX();
     int recebeY = getY();
@@ -38,17 +39,32 @@ public class AgenteJuntoEAGenteSeparado extends Agente
 	
 	public void recebeuEnergia() {
         enviaMensagem("Estou no cogumelo");
+        tempo++;
+        System.out.println("Tempoooo"+tempo);
         teste = true;
         para();
-        
-	}
+    
+        tempo++;
+        if((podeDividir() && getEnergia() >= 700) && (tempo > 50)) {
+                divide();
+                tempo = 0;
+            }
+        }
+	
 	
 	public void tomouDano(int energiaRestanteInimigo) {
-        setDirecao(geraDirecaoAleatoria());
 
         if (getEnergia() < 10) {
             morre();
         }
+
+        if (getEnergia() < 300) {
+            podeMoverPara(ESQUERDA);
+            if (getEnergia() < 280) {
+                podeMoverPara(CIMA);
+            }
+        }
+        
 
 	}
 	
@@ -67,8 +83,9 @@ public class AgenteJuntoEAGenteSeparado extends Agente
                     podeMoverPara(DIREITA);
                 }
             }
+        }
 
-            if ((contador % time) == 0) {
+            if ((contador % time) == 1) {
                 if (getY() > recebeY) {
                     podeMoverPara(BAIXO);
                 } else {
@@ -76,8 +93,8 @@ public class AgenteJuntoEAGenteSeparado extends Agente
                 }
             }
     
-        }
     }
+    
     
     
 
