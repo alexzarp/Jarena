@@ -40,7 +40,7 @@ public class AgenteJuntoEAGenteSeparado extends Agente
 	public void recebeuEnergia() {
         enviaMensagem("Estou no cogumelo");
         tempo++;
-        System.out.println("Tempoooo"+tempo);
+        
         teste = true;
         para();
     
@@ -58,14 +58,17 @@ public class AgenteJuntoEAGenteSeparado extends Agente
             morre();
         }
 
+        enviaMensagem("Estou tomando dano aqui");
+
         if (getEnergia() < 300) {
             podeMoverPara(ESQUERDA);
+
             if (getEnergia() < 280) {
                 podeMoverPara(CIMA);
             }
         }
         
-
+        
 	}
 	
 	public void ganhouCombate() {
@@ -91,6 +94,10 @@ public class AgenteJuntoEAGenteSeparado extends Agente
                 } else {
                     podeMoverPara(CIMA);
                 }
+            }
+
+            if(msg.equals("Estou tomando dano aqui")) {
+
             }
     
     }
