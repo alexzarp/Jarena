@@ -62,6 +62,7 @@ public class AgenteJuntoEAGenteSeparado extends Agente
             if ((contador % time) == 0) {
                 if (getX() > recebeX) {
                     podeMoverPara(ESQUERDA);
+                    
                 } else {
                     podeMoverPara(DIREITA);
                 }
