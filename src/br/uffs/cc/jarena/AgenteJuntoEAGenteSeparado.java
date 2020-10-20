@@ -40,7 +40,7 @@ public class AgenteJuntoEAGenteSeparado extends Agente
             }
         }
 
-        System.out.println("FUNCIONNAAAAAA");
+        
 
         
     }
@@ -62,7 +62,9 @@ public class AgenteJuntoEAGenteSeparado extends Agente
             setDirecao(geraDirecaoAleatoria());
         }
 
-        
+        if (getEnergia() < 270) {
+            enviaMensagem("Estou com pouca vida");
+        }
 
 	}
 	
@@ -74,7 +76,7 @@ public class AgenteJuntoEAGenteSeparado extends Agente
         para();
     
         tempo++;
-        if((podeDividir() && getEnergia() >= 700) && (tempo > 35)) {
+        if((podeDividir() && getEnergia() >= 800) && (tempo > 35)) {
                 divide();
                 tempo = 0;
                 System.out.println("me dividi");
@@ -118,7 +120,10 @@ public class AgenteJuntoEAGenteSeparado extends Agente
             DirecaoContraria();
         }
 
-            
+        if(msg.equals("Estou com poca vida")) {
+            para();
+
+        }
     
     }
     
